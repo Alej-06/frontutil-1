@@ -13,7 +13,7 @@ export class BlogService {
   constructor(private oHttp: HttpClient) {}
 
   getPage(page: number, rpp: number): Observable<IPage<Blog>> {
-    return this.oHttp.get<IPage<Blog>>(serverURL + `/blog?page=${page}&rpp=${rpp}`);
+    return this.oHttp.get<IPage<Blog>>(serverURL + `/blog?page=${page}&size=${rpp}`);
   }
 
 }

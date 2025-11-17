@@ -1,12 +1,20 @@
 <h1>Blog</h1>
 
+<!-- Botonera con @for      -->
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    @for (strBotonera of oBotonera; track strBotonera ) {
+    <button type="button" class="btn btn-primary">{{ strBotonera }}</button>
+    }
+</div>
 
 <table class="table">
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Content</th>
+            <th scope="col">Título</th>
+            <th scope="col">Etiquetas</th>
+            <th scope="col">Creación</th>
+            <th scope="col">Actualización</th>
         </tr>
     </thead>
     <tbody>
@@ -14,7 +22,9 @@
         <tr>
             <th scope="row">{{ oBlog.id }}</th>
             <td>{{ oBlog.titulo }}</td>
-            <td>{{ oBlog.contenido }}</td>
+            <td>{{ oBlog.etiquetas }}</td>
+            <td>{{ oBlog.fechaCreacion }}</td>
+            <td>{{ oBlog.fechaModificacion }}</td>
         </tr>
         }
     </tbody>
