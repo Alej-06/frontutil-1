@@ -2,7 +2,7 @@
 
 <nav>
     <ul class="pagination">
-        <li class="page-item">
+        <li class="page-item" [class.disabled]="numPage==0">
             <a class="page-link" (click)="goToPage(numPage-1)">Previous</a>
         </li>
         @for (strBotonera of oBotonera; track strBotonera ) {
@@ -14,9 +14,8 @@
             <a class="page-link" (click)="goToPage((-(-strBotonera))-1)">{{strBotonera}}</a>
         </li>
         }
-
         }
-        <li class="page-item">
+        <li class="page-item" [class.disabled]="numPage+1==oPage?.totalPages">
             <a class="page-link" (click)="goToPage(numPage+1)">Next</a>
         </li>
     </ul>
