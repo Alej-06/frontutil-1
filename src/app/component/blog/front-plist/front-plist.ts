@@ -27,10 +27,10 @@ export class FrontPlist {
   }
 
   getPage() {
-    this.oBlogService.getPage(this.numPage, this.numRpp).subscribe({
+    this.oBlogService.getPage(this.numPage, this.numRpp, 'fechaModificacion', 'desc').subscribe({
       next: (data: IPage<IBlog>) => {
         this.oPage = data;
-        // si estamos en una página que supera el límite entonces nos situamos en la ultima disponible
+        // OJO! si estamos en una página que supera el límite entonces nos situamos en la ultima disponible
         if (this.numPage > 0 && this.numPage >= data.totalPages) {
           this.numPage = data.totalPages - 1;
           this.getPage();
