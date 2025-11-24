@@ -7,7 +7,13 @@ import { RoutedUserView } from './component/blog/routed-user-view/routed-user-vi
 import { RoutedAdminEdit } from './component/blog/routed-admin-edit/routed-admin-edit';
 import { RoutedAdminNew } from './component/blog/routed-admin-new/routed-admin-new';
 import { RoutedAdminRemove } from './component/blog/routed-admin-remove/routed-admin-remove';
-import { RecursoPavon } from './component/pavon/recurso/recurso';
+import { RoutedUserPlistPavon } from './component/pavon/routed-user-plist/routed-user-plist';
+import { RoutedUserViewPavon } from './component/pavon/routed-user-view/routed-user-view';
+import { RoutedAdminPlistPavon } from './component/pavon/routed-admin-plist/routed-admin-plist';
+import { RoutedAdminEditPavon } from './component/pavon/routed-admin-edit/routed-admin-edit';
+import { RoutedAdminNewPavon } from './component/pavon/routed-admin-new/routed-admin-new';
+import { RoutedAdminRemovePavon } from './component/pavon/routed-admin-remove/routed-admin-remove';
+import { RoutedAdminViewPavon } from './component/pavon/routed-admin-view/routed-admin-view';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -18,5 +24,11 @@ export const routes: Routes = [
   { path: 'blog/new', component: RoutedAdminNew },
   { path: 'blog/edit/:id', component: RoutedAdminEdit },
   { path: 'blog/remove/:id', component: RoutedAdminRemove },
-  { path: 'recurso', component: RecursoPavon },
+  { path: 'recurso', component: RoutedUserPlistPavon },
+  { path: 'recurso/post/:id', component: RoutedUserViewPavon },
+  { path: 'recurso/plist', component: RoutedAdminPlistPavon },
+  { path: 'recurso/view/:id', component: RoutedAdminViewPavon },
+  { path: 'recurso/new', component: RoutedAdminNewPavon },
+  { path: 'recurso/edit/:id', component: RoutedAdminEditPavon },
+  { path: 'recurso/remove/:id', component: RoutedAdminRemovePavon },
 ];

@@ -1,9 +1,8 @@
 
 export interface IRecurso {
   id: number
-  titulo: string
+  nombre: string
   url: string
-  etiquetas: string
   fechaCreacion: string
   fechaModificacion: any
   publico: boolean
