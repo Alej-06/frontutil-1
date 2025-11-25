@@ -85,7 +85,7 @@ export class RoutedAdminEditPavon implements OnInit {
         this.pavonService.update(payload).subscribe({
             next: () => {
                 this.submitting = false;
-                this.router.navigate(['/pavon/plist']);
+                this.router.navigate(['/recurso/plist']);
             },
             error: (err: HttpErrorResponse) => {
                 this.submitting = false;

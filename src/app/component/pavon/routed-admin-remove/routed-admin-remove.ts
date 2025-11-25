@@ -51,7 +51,7 @@ export class RoutedAdminRemovePavon implements OnInit {
     this.pavonService.delete(this.oRecurso.id).subscribe({
       next: () => {
         this.deleting = false;
-        this.router.navigate(['/pavon/plist']);
+        this.router.navigate(['/recurso/plist']);
       },
       error: (err: HttpErrorResponse) => {
         this.deleting = false;
@@ -62,6 +62,6 @@ export class RoutedAdminRemovePavon implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/pavon/plist']);
+    this.router.navigate(['/recurso/plist']);
   }
 }
