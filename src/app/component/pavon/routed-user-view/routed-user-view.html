@@ -1,1 +1,10 @@
-<app-unrouted-user-view [oRecurso]="oRecurso"></app-unrouted-user-view>
+@if (oRecurso) {
+  <app-unrouted-user-view [oRecurso]="oRecurso"></app-unrouted-user-view>
+} @else {
+  <div class="container my-5 text-center">
+    <div class="alert alert-warning" role="alert">
+      <i class="bi bi-exclamation-triangle me-2"></i>
+      Este recurso no está disponible o no es público.
+    </div>
+  </div>
+}

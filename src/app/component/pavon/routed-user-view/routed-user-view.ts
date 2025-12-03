@@ -30,7 +30,12 @@ export class RoutedUserViewPavon {
   getRecurso(recursoId: number) {
     this.oPavonService.get(recursoId).subscribe({
       next: (data: IRecurso) => {
-        this.oRecurso = data;
+        // Si el recurso no es público, no lo muestres
+        if (data.publico === true) {
+          this.oRecurso = data;
+        } else {
+          console.error('Este recurso no es público');
+        }
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error fetching recurso:', error);

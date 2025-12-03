@@ -72,9 +72,15 @@
               class="form-check-input"
               id="publico"
               formControlName="publico"
+              (change)="recursoForm.get('publico')?.updateValueAndValidity()"
             />
-            <label class="form-check-label" for="publico">
+            <label class="form-check-label d-flex align-items-center" for="publico">
               Público
+              @if (recursoForm.get('publico')?.value) {
+                <i class="bi bi-check-circle text-success ms-2"></i>
+              } @else {
+                <i class="bi bi-x-circle text-danger ms-2"></i>
+              }
             </label>
           </div>
 

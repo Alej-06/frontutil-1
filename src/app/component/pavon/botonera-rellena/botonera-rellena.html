@@ -1,0 +1,12 @@
+<div class="btn-group" role="group" aria-label="Botonera rellena">
+  @for (opt of options; track $index) {
+  <button
+    class="btn btn-sm"
+    [class.btn-primary]="cantidad === opt"
+    [class.btn-outline-secondary]="cantidad !== opt"
+    (click)="setCantidad(opt)"
+  >
+    {{ opt }}
+  </button>
+  }
+</div>

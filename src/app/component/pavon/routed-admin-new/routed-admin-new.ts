@@ -46,16 +46,18 @@ export class RoutedAdminNewPavon implements OnInit {
     }
 
     this.submitting = true;
+    const formValue = this.recursoForm.getRawValue();
     const payload: Partial<IRecurso> = {
-      nombre: this.recursoForm.value.nombre,
-      url: this.recursoForm.value.url,
-      publico: this.recursoForm.value.publico,
+      nombre: formValue.nombre,
+      url: formValue.url,
+      publico: formValue.publico === true || formValue.publico === 'true' || formValue.publico === 1,
     };
 
+    console.log('Enviando payload de creación:', payload);
     this.pavonService.create(payload).subscribe({
       next: () => {
         this.submitting = false;
-        this.router.navigate(['/recurso/plist']);
+        this.router.navigate(['/recurso/plist'], { queryParams: { msg: 'Recurso creado correctamente' } });
       },
       error: (err: HttpErrorResponse) => {
         this.submitting = false;

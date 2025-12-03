@@ -56,7 +56,7 @@ export class RoutedAdminEditPavon implements OnInit {
                 this.recursoForm.patchValue({
                     nombre: recurso.nombre,
                     url: recurso.url,
-                    publico: recurso.publico,
+                    publico: !!recurso.publico,
                 });
                 this.loading = false;
             },
@@ -75,17 +75,23 @@ export class RoutedAdminEditPavon implements OnInit {
         }
 
         this.submitting = true;
-        const payload: Partial<IRecurso> = {
+        const formValue = this.recursoForm.getRawValue();
+        
+        // Construir payload - usar cualquier tipo para permitir diferentes formatos
+        const payload: any = {
             id: this.recursoId!,
-            nombre: this.recursoForm.value.nombre,
-            url: this.recursoForm.value.url,
-            publico: this.recursoForm.value.publico
+            nombre: formValue.nombre,
+            url: formValue.url,
+            publico: formValue.publico === true || formValue.publico === 'true' || formValue.publico === 1,
+            fechaCreacion: this.originalRecurso?.fechaCreacion || '',
+            fechaModificacion: this.originalRecurso?.fechaModificacion || null
         };
 
+        console.log('Enviando payload:', JSON.stringify(payload));
         this.pavonService.update(payload).subscribe({
             next: () => {
                 this.submitting = false;
-                this.router.navigate(['/recurso/plist']);
+                this.router.navigate(['/recurso/plist'], { queryParams: { msg: 'Recurso actualizado correctamente' } });
             },
             error: (err: HttpErrorResponse) => {
                 this.submitting = false;

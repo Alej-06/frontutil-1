@@ -17,29 +17,51 @@ export class RoutedUserPlistPavon {
   oPage: IPage<IRecurso> | null = null;
   numPage: number = 0;
   numRpp: number = 2;
+  private allPublicRecursos: IRecurso[] = [];
 
   constructor(private oPavonService: PavonService) { }
 
   oBotonera: string[] = [];
 
   ngOnInit() {
-    this.getPage();
+    this.loadAllPublicRecursos();
   }
 
-  getPage() {
-    this.oPavonService.getPage(this.numPage, this.numRpp, 'fechaCreacion', 'desc').subscribe({
+  loadAllPublicRecursos() {
+    // Obtener la primera página con muchos elementos para filtrar
+    const largePageSize = 100;
+    this.oPavonService.getPage(0, largePageSize, 'fechaCreacion', 'desc').subscribe({
       next: (data: IPage<IRecurso>) => {
-        this.oPage = data;
-        // OJO! si estamos en una página que supera el límite entonces nos situamos en la ultima disponible
-        if (this.numPage > 0 && this.numPage >= data.totalPages) {
-          this.numPage = data.totalPages - 1;
-          this.getPage();
-        }
+        // Filtrar solo recursos públicos
+        this.allPublicRecursos = data.content.filter(recurso => recurso.publico === true);
+        this.updatePageDisplay();
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
       },
     });
+  }
+
+  private updatePageDisplay() {
+    // Calcular índices de inicio y fin para esta página
+    const startIndex = this.numPage * this.numRpp;
+    const endIndex = startIndex + this.numRpp;
+    
+    // Obtener los recursos para esta página
+    const pageContent = this.allPublicRecursos.slice(startIndex, endIndex);
+    
+    // Crear objeto IPage con los datos filtrados
+    this.oPage = {
+      content: pageContent,
+      totalElements: this.allPublicRecursos.length,
+      totalPages: Math.ceil(this.allPublicRecursos.length / this.numRpp) || 1,
+      numberOfElements: pageContent.length,
+      size: this.numRpp
+    } as IPage<IRecurso>;
+  }
+
+  getPage() {
+    this.updatePageDisplay();
   }
 
   goToPage(numPage: number) {
