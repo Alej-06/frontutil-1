@@ -1,0 +1,67 @@
+<div class="container my-5 remove-visita">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      @if (loading) {
+        <div class="d-flex justify-content-center my-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      }
+
+      @if (error) {
+        <div class="alert alert-danger" role="alert">
+          <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+        </div>
+      }
+
+      @if (!loading && !error && oVisita) {
+        <div class="card shadow-sm mb-4 visita-card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h5 class="fw-bold mb-2">{{ oVisita.nombre }}</h5>
+                <p class="text-muted mb-3">{{ oVisita.comentario }}</p>
+              </div>
+              <span class="badge px-3 py-2"
+                    [ngClass]="oVisita.estaPublicado ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'">
+                @if (oVisita.estaPublicado) { Publicado } @else { No publicado }
+              </span>
+            </div>
+
+            <div class="small text-muted d-flex flex-wrap gap-3">
+              <span><i class="bi bi-calendar-plus me-2"></i>Creado: {{ oVisita.fechaCreacion }}</span>
+              @if (oVisita.fechaModificacion) {
+                <span><i class="bi bi-pencil-square me-2"></i>Editado: {{ oVisita.fechaModificacion }}</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm-box p-4 border rounded bg-light">
+          <h2 class="h5 mb-3">Confirmar borrado</h2>
+          <p class="text-muted mb-4">
+            ¿Seguro que deseas borrar este registro? Esta acción no se puede deshacer.
+          </p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-outline-secondary" (click)="cancel()">
+              <i class="bi bi-arrow-left me-2"></i>Cancelar
+            </button>
+            <button class="btn btn-danger" [disabled]="deleting" (click)="confirmDelete()">
+              @if (deleting) {
+                <span
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              } @else {
+                <i class="bi bi-trash me-2"></i>
+              }
+              Borrar definitivamente
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Detalle de visita</h1>
+    <a class="btn btn-outline-secondary btn-sm" (click)="goBack()">
+      <i class="bi bi-arrow-left me-2"></i>Volver
+    </a>
+  </div>
+
+  @if (loading) {
+    <div class="d-flex justify-content-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-triangle me-2"></i>{{ error }}
+    </div>
+  }
+
+  @if (!loading && !error && oVisita) {
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+          <div>
+            <h5 class="fw-bold mb-1">{{ oVisita.nombre }}</h5>
+            <p class="text-muted mb-0">{{ oVisita.comentario }}</p>
+          </div>
+          @if (oVisita.estaPublicado) {
+            <span class="badge bg-success">Publicado</span>
+          } @else {
+            <span class="badge bg-danger">No publicado</span>
+          }
+        </div>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">ID</span>
+            <span>{{ oVisita.id }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Creado</span>
+            <span>{{ oVisita.fechaCreacion }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">Última modificación</span>
+            <span>{{ oVisita.fechaModificacion || '—' }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  }
+</div>
